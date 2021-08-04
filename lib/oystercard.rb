@@ -8,6 +8,7 @@ class Oystercard
   def initialize
     @balance = 0
     @journey_log = []
+    @journey = Journey.new
   end
 
   def top_up(amount)
@@ -16,9 +17,6 @@ class Oystercard
     @balance += amount
   end
 
-  def in_journey?
-    !entry_station.nil?
-  end
 
   def touch_in(station)
     raise 'Insufficient funds, please top up' if @balance < MINIMUM_FARE
@@ -30,20 +28,12 @@ class Oystercard
   def touch_out(station)
     self.deduct
     @exit_station = station
-    log_journey
+    @journey.log_journey
     entry_station = nil
   end
 
   private
 
-  def deduct(amount = MINIMUM_FARE)
-    @balance -= amount
-  end
 
-  def log_journey
-    if !entry_station.nil? && !exit_station.nil?
-      @journey_log << { entry_station: entry_station, exit_station: exit_station }
-    end
-  end
 
 end
