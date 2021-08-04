@@ -48,33 +48,11 @@ describe Oystercard do
   
   describe "#touch_in" do
   
-    it "expect touch_in to update #in_journey" do
-      @card1.top_up(10)
-      @card1.touch_in(station)
-      expect(@card1.in_journey?).to eq(true)
-    end
-    
-    it "does not allow touch in when balance is below minimum fare" do
-      expect { @card1.touch_in(station) }.to raise_error "Insufficient funds, please top up"
-    end
-
-    it "records the entry station of the journey" do
-      @card1.top_up(10)
-      @card1.touch_in(station)
-      expect(@card1.entry_station).to eq(station)
-    end
   end
 
   describe "#touch_out" do
 
-    it "expect touch_out to update #in_journey" do
-      @card1.touch_out(station2)
-      expect(@card1.in_journey?).to eq(false)
-    end
 
-    it "is expected to deduct funds from balance when touch_out is called" do
-      expect { @card1.touch_out(station) }.to change { @card1.balance }.by(-1)
-    end
 
     it "entry_station returns nil on touch_out" do
       @card1.touch_out(station2)

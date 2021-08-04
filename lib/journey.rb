@@ -14,9 +14,7 @@ class Journey
     !entry_station.nil?
   end
 
-  def deduct(amount = MINIMUM_FARE)
-    @balance -= amount
-  end
+
 
   def log_journey
     if !entry_station.nil? && !exit_station.nil?
@@ -25,15 +23,12 @@ class Journey
   end
 
   def start_journey(station, balance)
-    deduct(PENALTY_FARE) if !@entry_station.nil?
-    raise 'Insufficient funds, please top up' if balance < MINIMUM_FARE
-
     @entry_station = station
     @exit_station = nil
   end
 
-  def end_journey(station)
-    deduct(PENALTY_FARE) if !@exit_station.nil?
+  def end_journey(station, balance)
+
     @exit_station = station
   end
 
