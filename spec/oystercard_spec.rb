@@ -5,6 +5,7 @@ describe Oystercard do
   let (:station) { double("Stockwell") }
   let (:station2) { double("Clapham North") }
 
+
   before do
     @card1 = Oystercard.new
   end
@@ -44,8 +45,9 @@ describe Oystercard do
       expect(@card1.in_journey?).to be(true).or be(false)
     end
   end
-
+  
   describe "#touch_in" do
+  
     it "expect touch_in to update #in_journey" do
       @card1.top_up(10)
       @card1.touch_in(station)
@@ -95,10 +97,10 @@ describe Oystercard do
     end
 
     it "is expected to return a list of the entry and exit stations of the Oyster card" do
-      @card1.top_up(50)
-      @card1.touch_in(station)
-      @card1.touch_out(station2)
-      expect(@card1.journey_log).to contain_exactly({ entry_station: station, exit_station: station2 })
+      
+      @card2.touch_in(station)
+      @card2.touch_out(station2)
+      expect(@card2.journey_log).to contain_exactly({ entry_station: station, exit_station: station2 })
     end
 
   end
