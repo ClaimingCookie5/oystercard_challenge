@@ -1,7 +1,7 @@
 CARD_LIMIT = 90
 
 class Oystercard
-  attr_reader :balance, :journey_log
+  attr_reader :balance, :journey_log, :journey
 
   def initialize
     @balance = 0
@@ -23,7 +23,7 @@ class Oystercard
     @journey.start_journey(station)
   end
 
-  def touch_out(station, balance = @balance)
+  def touch_out(station)
     deduct(PENALTY_FARE) if !@journey.exit_station.nil?
     deduct
     @journey.end_journey(station)

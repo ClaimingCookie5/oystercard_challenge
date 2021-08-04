@@ -2,6 +2,8 @@ require 'journey'
 # require "oystercard"
 
 describe Journey do
+  let (:station) { double(Station.new("Stockwell", 2)) }
+  let (:station2) { double(Station.new("Clapham North", 3)) }
 
   it { is_expected.to respond_to(:in_journey?) }
 
@@ -15,33 +17,21 @@ describe Journey do
   describe "#start_journey" do
   
     it "expect #start_journey to update #in_journey" do
-      subject.start_journey(station, balance)
-      expect(subject.in_journey).to eq(true) 
-      
-    it "does not allow start journey when balance is below minimum fare" do
-        expect { subject.start_journey(station, 0) }.to raise_error "Insufficient funds, please top up"
+      subject.start_journey(station)
+      expect(subject.in_journey?).to eq(true) 
     end
 
     it "records the entry station of the journey" do
-      subject.start_journey("Stockwell")
-      expect(subject.entry_station).to eq("Stockwell")
+      subject.start_journey(station)
+      expect(subject.entry_station).to eq(station)
     end
   end
 
   describe "#end_journey" do
-  
-
-    it "expect touch_out to update #in_journey" do
+    it "expect #end_journey to update @exit_station" do
       subject.end_journey(station)
-      expect(subject.in_journey?).to eq(false) 
+      expect(subject.exit_station).to eq(station) 
     end
-
-    it "is expected to deduct fare from balance when #end_journey is called" do
-      expect { subject.end_journey(station) }.to change(:balance).by(-1)
-    end
-
-
   end
-
 end
 

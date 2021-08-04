@@ -2,7 +2,7 @@ PENALTY_FARE = 6
 MINIMUM_FARE = 1
 
 class Journey
-  attr_accessor :entry_station
+  attr_accessor :entry_station, :exit_station, :journey_log
 
   def initialize
     @entry_station = nil
@@ -22,13 +22,12 @@ class Journey
     end
   end
 
-  def start_journey(station, balance)
+  def start_journey(station)
     @entry_station = station
     @exit_station = nil
   end
 
-  def end_journey(station, balance)
-
+  def end_journey(station)
     @exit_station = station
   end
 
