@@ -12,6 +12,4 @@ class Journey
   def in_journey?
     !entry_station.nil?
   end
-
-
 end

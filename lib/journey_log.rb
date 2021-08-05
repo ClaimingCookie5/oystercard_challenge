@@ -15,7 +15,6 @@ class JourneyLog
     log_journey
   end
 
-
   def log_journey
     @journeys << @current_journey
   end
