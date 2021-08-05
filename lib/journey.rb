@@ -7,7 +7,6 @@ class Journey
   def initialize
     @entry_station = nil
     @exit_station = nil
-    @journey_log = []
   end
 
   def in_journey?

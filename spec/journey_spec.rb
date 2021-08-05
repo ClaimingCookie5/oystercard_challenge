@@ -13,18 +13,5 @@ describe Journey do
     end
   end
 
-  # describe "#start_journey" do
-  
-  #   it "expect #start_journey to update #in_journey" do
-  #     subject.start_journey(station)
-  #     expect(subject.in_journey?).to eq(true) 
-  #   end
-
-  #   it "records the entry station of the journey" do
-  #     subject.start_journey(station)
-  #     expect(subject.entry_station).to eq(station)
-  #   end
-    
-  # end
 end
 

@@ -20,7 +20,7 @@ class JourneyLog
     @journeys << @current_journey
   end
 
-  # private
+  private
 
   def current_journey
     @current_journey ||= @journey_class.new
