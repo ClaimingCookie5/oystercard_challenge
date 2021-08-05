@@ -25,13 +25,9 @@ describe Journey do
       subject.start_journey(station)
       expect(subject.entry_station).to eq(station)
     end
+    
   end
 
-  describe "#end_journey" do
-    it "expect #end_journey to update @exit_station" do
-      subject.end_journey(station)
-      expect(subject.exit_station).to eq(station) 
-    end
-  end
+
 end
 
