@@ -17,18 +17,14 @@ class Oystercard
 
 
   def touch_in(station)
-    deduct(PENALTY_FARE) if !@journey.entry_station.nil?
-    raise 'Insufficient funds, please top up' if balance < MINIMUM_FARE
-
+    touch_in_checks
     @journey.start_journey(station)
   end
 
   def touch_out(station)
-    deduct(PENALTY_FARE) if !@journey.exit_station.nil?
+    touch_out_checks
     deduct
-    @journey.end_journey(station)
-    @journey.log_journey
-    @journey.entry_station = nil
+    log_proccess(station)
   end
 
   private
@@ -36,4 +32,20 @@ class Oystercard
   def deduct(amount = MINIMUM_FARE)
     @balance -= amount
   end
+
+  def touch_in_checks
+    deduct(PENALTY_FARE) if !@journey.entry_station.nil?
+    raise 'Insufficient funds, please top up' if balance < MINIMUM_FARE
+  end
+
+  def touch_out_checks
+    deduct(PENALTY_FARE) if !@journey.exit_station.nil?
+  end
+
+  def log_proccess(station)
+    @journey.end_journey(station)
+    @journey.log_journey
+    @journey.entry_station = nil
+  end
+  
 end
