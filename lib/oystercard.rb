@@ -5,8 +5,8 @@ class Oystercard
 
   def initialize
     @balance = 0
-    @journey_log = []
-    @journey = Journey.new
+    @journey_log = JourneyLog.new(journey_class: Journey)
+    # @journey = Journey.new
   end
 
   def top_up(amount)
@@ -18,7 +18,7 @@ class Oystercard
 
   def touch_in(station)
     touch_in_checks
-    @journey.start_journey(station)
+    @journey_log.current_journey.start(station)
   end
 
   def touch_out(station)
@@ -43,8 +43,9 @@ class Oystercard
   end
 
   def log_proccess(station)
-    @journey.end_journey(station)
-    @journey.log_journey
+    # @journey.end_journey(station)
+    # @journey.log_journey
+    @journey_log.current_journey.finish(station)
     @journey.entry_station = nil
   end
   
