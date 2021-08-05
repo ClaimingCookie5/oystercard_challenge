@@ -1,5 +1,5 @@
 class JourneyLog
-
+  attr_reader :journeys
   def initialize(journey_class: )
     @journey_class = journey_class
     @journeys = []
@@ -12,13 +12,12 @@ class JourneyLog
 
   def finish(station)
     @current_journey.exit_station = station
+    log_journey
   end
 
 
   def log_journey
-    if !@journey_class.entry_station.nil? && !@journ.exit_station.nil?
-      @journeys << [ @current_journey ]
-    end
+    @journeys << @current_journey
   end
 
   # private

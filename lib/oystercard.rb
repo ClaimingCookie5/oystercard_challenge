@@ -18,7 +18,7 @@ class Oystercard
 
   def touch_in(station)
     touch_in_checks
-    @journey_log.current_journey.start(station)
+    @journey_log.start(station)
   end
 
   def touch_out(station)
@@ -34,19 +34,19 @@ class Oystercard
   end
 
   def touch_in_checks
-    deduct(PENALTY_FARE) if !@journey.entry_station.nil?
+    deduct(PENALTY_FARE) if !@journey_log.current_journey.entry_station.nil?
     raise 'Insufficient funds, please top up' if balance < MINIMUM_FARE
   end
 
   def touch_out_checks
-    deduct(PENALTY_FARE) if !@journey.exit_station.nil?
+    deduct(PENALTY_FARE) if !@journey_log.current_journey.exit_station.nil?
   end
 
   def log_proccess(station)
     # @journey.end_journey(station)
     # @journey.log_journey
-    @journey_log.current_journey.finish(station)
-    @journey.entry_station = nil
+    @journey_log.finish(station)
+    @journey_log.current_journey.entry_station = nil
   end
   
 end

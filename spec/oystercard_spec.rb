@@ -52,7 +52,7 @@ describe Oystercard do
     it "starts a journey" do
       card1.top_up(10)
       card1.touch_in(station)
-      expect(card1.journey.entry_station).to eq(station)
+      expect(card1.journey_log.current_journey.entry_station).to eq(station)
     end
   end
 
@@ -69,28 +69,28 @@ describe Oystercard do
 
     it "entry_station returns nil on touch_out" do
       card1.touch_out(station2)
-      expect(card1.journey.entry_station).to eq(nil)
+      expect(card1.journey_log.current_journey.entry_station).to eq(nil)
     end
 
     it "records the exit station of the journey" do
       card1.top_up(10)
       card1.touch_in(station)
       card1.touch_out(station2)
-      expect(card1.journey.exit_station).to eq(station2)
+      expect(card1.journey_log.current_journey.exit_station).to eq(station2)
     end
 
   end
 
   describe '#journey_log' do
     it "is expected to containe an empty list of journeys" do
-      expect(card1.journey_log).to be_empty
+      expect(card1.journey_log.journeys).to be_empty
     end
 
     it "is expected to return a list of the entry and exit stations of the Oyster card" do
       card1.top_up(10)
       card1.touch_in(station)
       card1.touch_out(station2)
-      expect(card1.journey.journey_log).to contain_exactly({ entry_station: station, exit_station: station2 })
+      expect(card1.journey_log.journeys).to contain_exactly((card1.journey_log.current_journey))
     end
   end
 
